@@ -115,7 +115,7 @@ begin
     CodeEdit.BorderSpacing.Right := 8;
     CodeEdit.BorderSpacing.Bottom := 4;
     CodeEdit.onChange := @codeunit_CodeChange;
-    //CodeEdit.OnKeyUp := @CodeUnit_OnKeyUp;
+    CodeEdit.OnKeyUp := @CodeUnit_OnKeyUp;
     CodeEdit.OnKeyDown := @CodeUnit_OnKeyDown;
     CodeEdit.OnSpecialLineColors := @CodeUnit_OnSpecialLineColors;
     CodeEdit.OnMouseDown := @CodeUnit_OnMouseDown;
@@ -1470,9 +1470,9 @@ begin
     TStatusBar(MainForm.find('Statusbar')).Panels.Items[1].Text :=
         'Line/Column: '+IntToStr(TSyntaxMemo(Sender.Owner.find('Editor')).CaretY)+
         '/'+IntToStr(TSyntaxMemo(Sender.Owner.find('Editor')).CaretX);
-
+    }
     //invalidate to make current line paiting move faster
-    Sender.Invalidate;}
+    Sender.Invalidate;
 end;
 
 procedure CodeUnit_OnKeyDown(Sender: TSyntaxMemo; var Key: int; keyInfo: TKeyInfo);
@@ -1512,8 +1512,8 @@ begin
     TStatusBar(MainForm.find('Statusbar')).Panels.Items[1].Text :=
         'Line/Column: '+IntToStr(TSyntaxMemo(Sender.Owner.find('Editor')).CaretY)+
         '/'+IntToStr(TSyntaxMemo(Sender.Owner.find('Editor')).CaretX);
-
-    Sender.Invalidate;}
+    }
+    Sender.Invalidate;
 end;
 
 procedure codeUnit_OnKeyPress(Sender: TSyntaxMemo; var Key: Char);

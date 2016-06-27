@@ -1399,10 +1399,28 @@ begin
 end;
 
 procedure mainaction_Build_Execute(Sender: TObject);
+var
+    canCompile: bool = true;
 begin
     if ActiveProjectFile = '' then exit;
 
-    if Compiler.Connected then
+    if not Compiler.isHardLicense then
+    begin
+        if Compiler.Connected then
+        begin
+            canCompile := true;
+        end
+            else
+        begin
+            canCompile := false;
+            if doMsgQuestion(MainForm, 'Please Confirm', 'You need to login to your '+_APP_NAME+' Account to build your project. Would you like to login now?') = mrYes then
+            createLogin(MainForm).ShowModalDimmed;
+        end;
+    end
+        else
+        canCompile := true;
+
+    if canCompile then
     begin
         if not Compiler.isRunning then
         begin
@@ -1428,11 +1446,6 @@ begin
             Compiler.Targets := ActiveProject.Values['targets'];
             Compiler.Make;
         end;
-    end
-        else
-    begin
-        if doMsgQuestion(MainForm, 'Please Confirm', 'You need to login to your '+_APP_NAME+' Account to build your project. Would you like to login now?') = mrYes then
-        createLogin(MainForm).ShowModalDimmed;
     end;
 end;
 
@@ -1602,15 +1615,20 @@ procedure mainaction_Target_Execute(Sender: TObject);
 begin
     if ActiveProjectFile = '' then exit;
 
-    if Compiler.Connected then
+    if not Compiler.isHardLicense then
     begin
-        createTargets(MainForm).ShowModalDimmed;
+        if Compiler.Connected then
+        begin
+            createTargets(MainForm).ShowModalDimmed;
+        end
+            else
+        begin
+            if doMsgQuestion(MainForm, 'Please Confirm', 'You need to login to your '+_APP_NAME+' Account to select targets for your project. Would you like to login now?') = mrYes then
+            createLogin(MainForm).ShowModalDimmed;
+        end;
     end
         else
-    begin
-        if doMsgQuestion(MainForm, 'Please Confirm', 'You need to login to your '+_APP_NAME+' Account to select targets for your project. Would you like to login now?') = mrYes then
-        createLogin(MainForm).ShowModalDimmed;
-    end;
+        createTargets(MainForm).ShowModalDimmed;
 end;
 
 procedure mainaction_LiveApps_Execute(Sender: TObject);

@@ -29,6 +29,7 @@ begin
     Compiler.Name := 'Compiler';
         Account := TLAAccount.Create;
         Account.AutoWaitCursor := true;
+        Account.OnUpdateProgress := @OnAccountData;
 
     Sender.Caption := Application.Title;
     Sender.Width := Screen.Width -200;
@@ -73,6 +74,24 @@ begin
     publishTimer.Interval := 500;
     publishTimer.Name := 'publishTimer';
     publishTimer.OnTimer := @mainform_PublishTimer;
+end;
+
+procedure OnAccountData(Sender: TObject; BytesSent, BytesReceived, TotalBytesToReceive: int64);
+begin
+    try
+        if accountProgress = nil then exit;
+
+        if FileExists(accountTransferFile) then
+        begin
+            accountProgress.Style := pbstNormal;
+            accountProgress.Max := Round(FileSizeBytesOf(accountTransferFile)) + 10000;
+            accountProgress.Position := BytesSent;
+        end
+            else
+            accountProgress.Style := pbstMarquee;
+
+        Application.ProcessMessages;
+    except end;
 end;
 
 procedure mainform_PublishTimer(Sender: TTimer);

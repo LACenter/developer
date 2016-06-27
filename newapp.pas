@@ -111,8 +111,9 @@ begin
     combo.Width := 360;
     combo.Name := 'eAppType';
     combo.Items.Add('Live Code Launch');
-    combo.Items.Add('Live Store Launch');
-    combo.Items.Add('Live Installer');
+    combo.Items.Add('Live XAP Launch');
+    combo.Items.Add('Installer');
+    combo.Items.Add('Download');
     combo.Style := csDropDownList;
     if liveAppDef <> nil then
     combo.ItemIndex := liveAppDef.AppType
@@ -205,7 +206,7 @@ begin
 
     lab := TLabel.Create(Sender);
     lab.Parent := Sender;
-    lab.Caption := 'External Buy Url (leave blank for LA.Center Online Payment)';
+    lab.Caption := 'Buy Url or Stripe Key or (leave blank for Live Payment)';
     lab.AutoSize := true;
     lab.Left := 20;
     lab.Top := 350; //top
@@ -434,6 +435,9 @@ begin
     progress.Name := 'aProgress';
     progress.Style := pbstMarquee;
     progress.Visible := false;
+    progress.Smooth := true;
+
+    accountProgress := progress;
 end;
 
 procedure newapp_AppLauncherClick(Sender: TEditButton);
@@ -456,7 +460,7 @@ begin
             Sender.Text := dlg.FileName;
         dlg.Free;
     end;
-    if TComboBox(Sender.Owner.find('eAppType')).ItemIndex = 2 then
+    if TComboBox(Sender.Owner.find('eAppType')).ItemIndex in [2,3] then
     begin
         dlg := TOpenDialog.Create(MainForm);
         dlg.Title := 'Please select Archive';
@@ -494,6 +498,8 @@ var
 begin
     if Sender.ModalResult = mrOK then
     begin
+        accountTransferFile := TEditButton(Sender.find('eAppLauncher')).Text;
+
         TProgressBar(Sender.Find('aProgress')).Show;
         Application.ProcessMessages;
 
@@ -566,10 +572,17 @@ begin
             canClose := false;
             MsgError('Error', ExceptionMessage);
         end;
+        TProgressBar(Sender.Find('aProgress')).Position :=
+            TProgressBar(Sender.Find('aProgress')).Max;
+        Application.ProcessMessages;
+
         TProgressBar(Sender.Find('aProgress')).Hide;
         Application.ProcessMessages;
+
+        accountProgress := nil;
     end;
 end;
+
 
 //unit constructor
 constructor begin end.

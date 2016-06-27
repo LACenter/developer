@@ -10,7 +10,7 @@
 uses 'codeunit', 'msgbox';
 
 const _APP_NAME = 'LA.Developer';
-const _APP_VERSION = '1.66';
+const _APP_VERSION = '1.70';
 const _APP_COPYRIGHT = '© 2016 LA.Center Corporation';
 const _APP_SUPPORT = 'developer.support@liveapps.center';
 const _APP_WEBSITE = 'https://liveapps.center';
@@ -57,6 +57,8 @@ var rightInSplitter: TSplitter = nil;
 var rightOutSplitter: TSplitter = nil;
 var outputPanel: TPanel = nil;
 var bottomOutSplitter: TSplitter = nil;
+var accountProgress: TProgressBar = nil;
+var accountTransferFile: string = '';
 
 var customPropEdit: TEdit;              //for testing Custom Prop Editor - not used
 
