@@ -55,8 +55,8 @@
 19file=toolstoolbar.pas
 language=Pascal
 launcherid=LA-6224424869484746564875885
-macbundle=0
-macbundle-icon=
+macbundle=1
+macbundle-icon=/home/xero/LA.Developer/Projects/developer/res/logo.icns
 mainfile=developer.pas
 publish-oncompile=0
 targets=

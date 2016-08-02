@@ -10,7 +10,7 @@
 uses 'codeunit', 'msgbox';
 
 const _APP_NAME = 'LA.Developer';
-const _APP_VERSION = '1.70';
+const _APP_VERSION = '1.78';
 const _APP_COPYRIGHT = '© 2016 LA.Center Corporation';
 const _APP_SUPPORT = 'developer.support@liveapps.center';
 const _APP_WEBSITE = 'https://liveapps.center';
@@ -1556,6 +1556,12 @@ var
 begin
     if Sender <> nil then
     begin
+        if Sender.isHardLicense then
+        begin
+            if Pos('Please login to your', message) > 0 then
+                exit;
+        end;
+
         item := OutputTree.Items.Add(message);
         if Pos('GC-ERROR', message) > 0 then
         item.ImageIndex := 84
@@ -2148,6 +2154,8 @@ begin
     setProxyPort(appsettings.Values['proxy-port']);
     setProxyUser(appsettings.Values['proxy-user']);
     setProxyPass(appsettings.Values['proxy-pass']);
+
+    deletefile(TempDir+'lamsg.que');
 
     //Setup Default App Settings
     if trim(appSettings.Text) = '' then

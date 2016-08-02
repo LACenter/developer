@@ -207,6 +207,7 @@ begin
     top.BringToFront;
 
     EventTree := TTreeView.Create(form);
+    EventTree.Options := tvoAutoItemHeight or tvoHideSelection;
     EventTree.Parent := sub;
     EventTree.Align := alClient;
     if appSettings.Values['show-scrollbar'] = '1' then
@@ -224,8 +225,10 @@ begin
     EventTree.ShowRoot := false;
     EventTree.DoubleBuffered := true;
     EventTree.Visible := false;
+    EventTree.ShowHint := false;
 
     PropTree := TTreeView.Create(form);
+    PropTree.Options := tvoAutoItemHeight or tvoHideSelection;
     PropTree.Parent := sub;
     PropTree.Align := alClient;
     if appSettings.Values['show-scrollbar'] = '1' then
@@ -242,6 +245,7 @@ begin
     PropTree.Images := treeHeight;
     PropTree.ShowRoot := false;
     PropTree.DoubleBuffered := true;
+    PropTree.ShowHint := false;
 
     PropTabs.AddTab(0, 'Properties', PropTree, 11);
     PropTabs.AddTab(1, 'Events', EventTree, 12);

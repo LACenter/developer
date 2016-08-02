@@ -1720,17 +1720,17 @@ begin
         if activePageImg in [_FORMPAGE, _FRAMEPAGE] then
             Accept := not (ImageIndex in [39..42,134..150]);
         if activePageImg = _REPORTPAGE then
-            Accept := ImageIndex in [39..42,134..150];
+            Accept := ImageIndex in [39..42,134..150,203..207];
         if activePageImg = _MODULEPAGE then
-            Accept := ImageIndex in [3..53];
+            Accept := ImageIndex in [3..53,203..207];
     end
         else
     begin
         //Android
         if activePageImg = _FORMPAGE then
-            Accept := (ImageIndex in [3..201]);
+            Accept := (ImageIndex in [3..207]);
         if activePageImg = _MODULEPAGE then
-            Accept := ImageIndex in [3..53];
+            Accept := ImageIndex in [3..53,203..207];
     end;
 end;
 
@@ -1752,7 +1752,7 @@ begin
             if activePageImg = _REPORTPAGE then
                 Accept := ImageIndex in [3..53,134..145,147..150];
             if activePageImg = _MODULEPAGE then
-                Accept := ImageIndex in [3..53];
+                Accept := ImageIndex in [3..53,203..207];
 
             if not Accept then
             begin
@@ -1761,14 +1761,14 @@ begin
                 exit;
             end;
 
-            if ImageIndex in [3..53,132,176,186] then   //Components
+            if ImageIndex in [3..53,132,176,186,203..207] then   //Components
             begin
                 component := createDesignerComponent(Sender, ImageIndex, CompName);
                 if component <> nil then
                 Sender.AddControl(component, X, Y); //parent is always designer
             end;
 
-            if (ImageIndex in [54..185]) and
+            if (ImageIndex in [54..185,202]) and
                (ImageIndex <> 132) and
                (ImageIndex <> 176) then     //Controls
             begin
@@ -1802,9 +1802,9 @@ begin
             //Android
 
             if activePageImg = _FORMPAGE then
-                Accept := ImageIndex in [3..201];
+                Accept := ImageIndex in [3..207];
             if activePageImg = _MODULEPAGE then
-                Accept := ImageIndex in [3..53];
+                Accept := ImageIndex in [3..53,203..207];
 
             if not Accept then
             begin
@@ -1813,7 +1813,7 @@ begin
                 exit;
             end;
 
-            if ImageIndex in [3..54,62,63,97,132,176,182,186,187,188,192,193,194,196,197,198,199,200,201] then
+            if ImageIndex in [3..54,62,63,97,132,176,182,186,187,188,192,193,194,196,197,198,199,200,201,203..207] then
             begin
                 //components
                 component := createDesignerComponent(Sender, ImageIndex, CompName);
@@ -2190,7 +2190,7 @@ end;
 procedure codeunit_DesignerError(Sender: TTimer);
 begin
     Sender.Enabled := false;
-    doMsgError(MainForm, 'Error', 'Form-Component incopatibility, can not add this component.');
+    doMsgError(MainForm, 'Error', 'Form-Component incompatibility, can not add this component.');
 end;
 
 procedure codeunit_formFocusClick(Sender: TObject);

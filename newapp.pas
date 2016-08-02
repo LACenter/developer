@@ -76,7 +76,7 @@ begin
     if liveAppDef <> nil then
     begin
         lab.Caption := 'Application Icon (leave blank if not changed)';
-        lab.Font.Style := fsBold;
+        //lab.Font.Style := fsBold;
     end
     else
     lab.Caption := 'Please select an Application Icon (optional)';
@@ -128,7 +128,7 @@ begin
     if liveAppDef <> nil then
     begin
         lab.Caption := 'Application Package/Reference (leave blank if not changed)';
-        lab.Font.Style := fsBold;
+        //lab.Font.Style := fsBold;
     end
     else
     lab.Caption := 'Please select an Application Package/Reference';

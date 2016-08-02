@@ -344,6 +344,13 @@ begin
     toolboxImages.AddFromResource('tb_sms', clFuchsia);             //199
     toolboxImages.AddFromResource('tb_textfileman', clFuchsia);     //200
     toolboxImages.AddFromResource('tb_yndialog', clFuchsia);        //201
+
+    toolboxImages.AddFromResource('tb_gis', clWhite);               //202
+    toolboxImages.AddFromResource('tb_dp', clWhite);                //203
+    toolboxImages.AddFromResource('tb_dp', clWhite);                //204
+    toolboxImages.AddFromResource('tb_dp', clWhite);                //205
+    toolboxImages.AddFromResource('tb_dp', clWhite);                //206
+    toolboxImages.AddFromResource('tb_dp', clWhite);                //207
 end;
 
 //unit constructor

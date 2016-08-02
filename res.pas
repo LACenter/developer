@@ -529,6 +529,9 @@
 //$res:tb_textfileman=[project-home]res/tb/textfileman.bmp
 //$res:tb_yndialog=[project-home]res/tb/yndialog.bmp
 
+//$res:tb_gis=[project-home]res/gis.bmp
+//$res:tb_dp=[project-home]res/dp.bmp
+
 
 //unit constructor
 constructor begin end.
